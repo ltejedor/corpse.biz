@@ -14,18 +14,31 @@
   <!-- this line removes any default padding and style. you might only need one of these values set. -->
 
   <script>
-  var current_color = "3A539B"
-  function update(jscolor) {
-    document.body.style.backgroundColor = '#' + jscolor
-    current_color = jscolor
-  }
-  function setColor(hexcolor) {
-    update(hexcolor);
-    document.getElementById('jscolor')
-            .jscolor.fromString(hexcolor)
-  }
-  </script>
+    var p5controller = {
+      current_color:"3A539B",
+      current_shape:"rect",
+      shape_size:20
+      };
 
+    function update(jscolor) {
+      document.body.style.backgroundColor = '#' + jscolor
+      p5controller.current_color = jscolor
+    }
+
+    function setColor(hexcolor) {
+      update(hexcolor);
+      document.getElementById('jscolor')
+              .jscolor.fromString(hexcolor)
+    }
+
+    function setShape(shape) {
+      p5controller.current_shape = shape;
+    }
+
+    function setShapeSize(size) {
+      p5controller.shape_size = size;
+    }
+  </script>
   <style> body {padding: 0; margin: 0;} </style>
 </head>
 
@@ -33,27 +46,44 @@
 	<h1>Exquisite Corpse</h1>
 	<container>
 		<div class="toolsContainer">
-      <div>
-        <button style="background:#CC0000" onmouseover="setColor('CC0000')">Red</button>
+      <div class="colorPicker">
+        <div>
+          <button style="background:#CC0000" onclick="setColor('CC0000')">Red</button>
+        </div>
+        <div>
+          <button style="background:#00CC00" onclick="setColor('00CC00')">Green</button>
+        </div>
+        <div>
+          <button style="background:#0000CC" onclick="setColor('0000CC')"><font color="white">Blue</font></button>
+        </div>
+        <div>
+          <button style="background:#CCCC00" onclick="setColor('CCCC00')">Yellow</button>
+        </div>
+        <div>
+          <button style="background:#663300" onclick="setColor('663300')"><font color="white">Brown</font></button>
+        </div>
+        <div>
+          <button style="background:#CC00CC" onclick="setColor('CC00CC')">Purple</button>
+        </div>
+        <div>
+          <input class="jscolor {position:'top'}" id="jscolor" onchange="update(this.jscolor)" value="3A539B" size="5">
+        </div>
+      </div> <!-- end colorPicker-->
+      <div class="shapePicker">
+        <div>
+          <button style="background:#00CCCC" onclick="setShape('line')">Line</button>
+        </div>
+        <div>
+          <button style="background:#00CCCC" onclick="setShape('rect')">Rectangle</button>
+        </div>
+        <div>
+          <button style="background:#00CCCC" onclick="setShape('circ')">Circle</button>
+        </div>
+        <div>
+          <input type="range" onchange="setShapeSize(this.value)" min="10" max="150" step="1" value="50">
+        </div>
       </div>
-      <div>
-        <button style="background:#00CC00" onmouseover="setColor('00CC00')">Green</button>
-      </div>
-      <div>
-        <button style="background:#0000CC" onmouseover="setColor('0000CC')"><font color="white">Blue</font></button>
-      </div>
-      <div>
-        <button style="background:#CCCC00" onmouseover="setColor('CCCC00')">Yellow</button>
-      </div>
-      <div>
-        <button style="background:#663300" onmouseover="setColor('663300')">Brown</button>
-      </div>
-      <div>
-        <button style="background:#CC00CC" onmouseover="setColor('CC00CC')">Purple</button>
-      </div>
-      <div>
-        <input class="jscolor" id="jscolor" onchange="update(this.jscolor)" value="3A539B" size="5">
-      </div>
+    </div> <!-- end toolsContainer-->
 		<div id="canvasContainer">
 		</div>
 	</container>

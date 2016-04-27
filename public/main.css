@@ -14,7 +14,12 @@ h1 {
   margin: 0 auto;
 }
 
-.toolsContainer div{
+.colorPicker div{
+  margin: 10px;
+  display: inline-block;
+}
+
+.colorPicker div{
   margin: 10px;
   display: inline-block;
 }
