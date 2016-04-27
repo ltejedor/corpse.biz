@@ -34,8 +34,6 @@ function setup(){
 
 
 function draw() {
-    var colorPicker = document.getElementById("ColorPicker");
-
     if (mouseIsPressed) {
         drawStroke(pmouseX, pmouseY, mouseX, mouseY);
         //noCursor();
@@ -45,5 +43,7 @@ function draw() {
 }
 
 drawStroke = function(xVal, yVal, hVal, rVal){
+   colorMode(RGB, 255);
+   stroke(color('#'+current_color));
    line(xVal, yVal, hVal, rVal);
 }

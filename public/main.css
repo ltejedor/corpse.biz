@@ -14,6 +14,11 @@ h1 {
   margin: 0 auto;
 }
 
+.toolsContainer div{
+  margin: 10px;
+  display: inline-block;
+}
+
 canvas {
   margin: 0 70% 0 30%;
   display: block;
