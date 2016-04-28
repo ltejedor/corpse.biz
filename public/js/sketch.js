@@ -33,6 +33,7 @@ function makeConnectors() {
 }
 
 function draw() {
+    var pct = 1;
     fill(color('#'+p5controller.current_color));
     stroke(color('#'+p5controller.current_color));
 
@@ -41,19 +42,25 @@ function draw() {
       background(235);
     }
 
-    if (p5controller.current_shape === "line") {
-      if (mouseIsPressed) {
-          strokeWeight(p5controller.size/10);
-          line(pmouseX, pmouseY, mouseX, mouseY);
-          //noCursor();
-      }
-    } else if (p5controller.current_shape === "rect") {
-      if (mouseIsPressed) {
-        rect(mouseX, mouseY, p5controller.size, p5controller.size);
-      }
-    } else if (p5controller.current_shape === "circ") {
     if (mouseIsPressed) {
-      ellipse(mouseX, mouseY, p5controller.size, p5controller.size);
-    }
+      if (p5controller.timer > 0  && p5controller.total_time > 0) {
+        p5controller.timer -= 1; // or else shapes will continue changing size
+        pct = 1 - p5controller.timer/p5controller.total_time;
+      } else if (p5controller.timer === 0) {
+        p5controller.timer = p5controller.total_time;
+      }
+
+      if (p5controller.current_shape === "line") {
+        var transition_weight = 0.1 * pct * (p5controller.size - p5controller.last_size) + p5controller.last_size;
+        strokeWeight(transition_weight);
+        line(pmouseX, pmouseY, mouseX, mouseY);
+      } else if (p5controller.current_shape === "rect") {
+        var transition_size = pct * (p5controller.size - p5controller.last_size) + p5controller.last_size;
+        rect(mouseX, mouseY, transition_size, transition_size);
+      } else if (p5controller.current_shape === "circ") {
+        var transition_size = pct * (p5controller.size - p5controller.last_size) + p5controller.last_size;
+        ellipse(mouseX, mouseY, transition_size, transition_size);
+      }
+
   }
 }

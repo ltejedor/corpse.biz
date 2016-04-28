@@ -16,13 +16,18 @@
   <script>
     var p5controller = {
       current_color:"3A539B",
+      last_color:"3A539B",
       current_shape:"rect",
       size:20,
-      clear:false
+      last_size:20,
+      clear:false,
+      total_time:0,
+      timer:0
       };
 
     function update(jscolor) {
       document.body.style.backgroundColor = '#' + jscolor
+      p5controller.last_color = p5controller.current_color;
       p5controller.current_color = jscolor
     }
 
@@ -37,11 +42,17 @@
     }
 
     function setShapeSize(size) {
+      p5controller.last_size = p5controller.size;
       p5controller.size = size;
     }
 
     function setClear() {
       p5controller.clear = true;
+    }
+
+    function setTimer(time) {
+      p5controller.total_time = time;
+      p5controller.timer = time;
     }
   </script>
   <style> body {padding: 0; margin: 0;} </style>
@@ -85,10 +96,11 @@
           <button style="background:#00CCCC" onclick="setShape('circ')">Circle</button>
         </div>
         <div>
-          <input type="range" onchange="setShapeSize(this.value)" min="10" max="150" step="1" value="50">
+          <input type="range" onchange="setShapeSize(this.value)" min="10" max="150" step="1" value="50" autocomplete="off">
         </div>
       </div>
       <button style="background:#00CCCC" onclick="setClear()">Clear</button>
+      <input type="range" onchange="setTimer(this.value)" min="0" max="100" step="1" value="0" autocomplete="off")
     </div> <!-- end toolsContainer-->
 		<div id="canvasContainer">
 		</div>
