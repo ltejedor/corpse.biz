@@ -7,7 +7,7 @@ function setup(){
     var myCanvas = createCanvas(700, 500);
     var canvasContainer = document.getElementById("canvasContainer");
     myCanvas.parent(canvasContainer);
-    colorMode(HSB, 100);
+    colorMode(RGB);
     rectMode(CENTER);
     ellipseMode(CENTER);
     background(235);
@@ -18,24 +18,24 @@ function setup(){
     initX = random(0, width);
     initY = random(0, height);
 
-    fill(initH, initS, initB);
-
-    //draw the body part lines
-    strokeWeight(3);
-    stroke(75);
-    var initLineYTop = height/2 - 5;
-    var initLineYBottom = height/2 + 5;
-    for(var i = 0; i < 6; i++){
-    	var initX = random(0, width);
-    	line(initX, initLineYTop, initX, initLineYBottom);
-    }
-
-    stroke(initH, initS, initB);
 
 }
 
+function makeConnectors() {
+  strokeWeight(3);
+  stroke(75);
+  var initLineYTop = height/2 - 5;
+  var initLineYBottom = height/2 + 5;
+  for(var i = 0; i < 6; i++){
+    var initX = random(0, width);
+    line(initX, initLineYTop, initX, initLineYBottom);
+  }
+}
 
 function draw() {
+    fill(color('#'+p5controller.current_color));
+    stroke(color('#'+p5controller.current_color));
+
     if (p5controller.clear) {
       p5controller.clear = false;
       background(235);
@@ -43,28 +43,17 @@ function draw() {
 
     if (p5controller.current_shape === "line") {
       if (mouseIsPressed) {
-          drawStroke(pmouseX, pmouseY, mouseX, mouseY);
+          strokeWeight(p5controller.size/10);
+          line(pmouseX, pmouseY, mouseX, mouseY);
           //noCursor();
       }
     } else if (p5controller.current_shape === "rect") {
       if (mouseIsPressed) {
-        colorMode(RGB, 255);
-        fill(color('#'+p5controller.current_color));
-        stroke(color('#'+p5controller.current_color));
-        rect(mouseX, mouseY, p5controller.shape_size, p5controller.shape_size);
+        rect(mouseX, mouseY, p5controller.size, p5controller.size);
       }
     } else if (p5controller.current_shape === "circ") {
     if (mouseIsPressed) {
-      colorMode(RGB, 255);
-      fill(color('#'+p5controller.current_color));
-      stroke(color('#'+p5controller.current_color));
-      ellipse(mouseX, mouseY, p5controller.shape_size, p5controller.shape_size);
+      ellipse(mouseX, mouseY, p5controller.size, p5controller.size);
     }
   }
-}
-
-drawStroke = function(xVal, yVal, hVal, rVal){
-   colorMode(RGB, 255);
-   stroke(color('#'+p5controller.current_color));
-   line(xVal, yVal, hVal, rVal);
 }
