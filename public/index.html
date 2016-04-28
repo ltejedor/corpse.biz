@@ -17,7 +17,8 @@
     var p5controller = {
       current_color:"3A539B",
       current_shape:"rect",
-      shape_size:20
+      shape_size:20,
+      clear:false
       };
 
     function update(jscolor) {
@@ -37,6 +38,10 @@
 
     function setShapeSize(size) {
       p5controller.shape_size = size;
+    }
+
+    function setClear() {
+      p5controller.clear = true;
     }
   </script>
   <style> body {padding: 0; margin: 0;} </style>
@@ -83,6 +88,7 @@
           <input type="range" onchange="setShapeSize(this.value)" min="10" max="150" step="1" value="50">
         </div>
       </div>
+      <button style="background:#00CCCC" onclick="setClear()">Clear</button>
     </div> <!-- end toolsContainer-->
 		<div id="canvasContainer">
 		</div>

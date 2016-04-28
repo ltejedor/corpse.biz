@@ -36,6 +36,11 @@ function setup(){
 
 
 function draw() {
+    if (p5controller.clear) {
+      p5controller.clear = false;
+      background(235);
+    }
+
     if (p5controller.current_shape === "line") {
       if (mouseIsPressed) {
           drawStroke(pmouseX, pmouseY, mouseX, mouseY);
