@@ -39,8 +39,8 @@ function draw() {
     }
     // fill(color('#'+p5controller.current_color));
     // stroke(color('#'+p5controller.current_color));
-    var last_color = color('#'+p5controller.last_color);
-    var current_color = color('#'+p5controller.current_color);
+    var last_color = color('#' + p5controller.last_color);
+    var current_color = color('#' + p5controller.current_color);
     var r = pct * (last_color.levels[0] - current_color.levels[0]) + current_color.levels[0];
     var g = pct * (last_color.levels[1] - current_color.levels[1]) + current_color.levels[1];
     var b = pct * (last_color.levels[2] - current_color.levels[2]) + current_color.levels[2];
