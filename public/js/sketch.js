@@ -46,7 +46,7 @@ function draw() {
     var b = pct * (last_color.levels[2] - current_color.levels[2]) + current_color.levels[2];
     fill(color(r,g,b));
     stroke(color(r,g,b));
-    
+
     if (p5controller.clear) {
       p5controller.clear = false;
       background(235);
