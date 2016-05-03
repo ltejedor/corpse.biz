@@ -17,6 +17,8 @@
 
   <script>
     var p5controller = {
+      user: "ben",
+      role: "head",
       color:"3A539B",
       shape:"line",
       size:20,
@@ -36,7 +38,6 @@
 
     function setShape(shape) {
       p5controller.shape = shape;
-      console.log(p5controller)
     }
 
     function setShapeSize(size) {
@@ -45,6 +46,11 @@
 
     function setClear() {
       p5controller.clear = true;
+    }
+    
+    function saveJSON() {
+      var output = JSON.stringify(instructions);
+      // post to flask server?
     }
 
   </script>
@@ -93,6 +99,7 @@
         </div>
       </div>
       <button style="background:#00CCCC" onclick="setClear()">Clear</button>
+      <button style="background:#00CCCC" onclick="saveJSON()">Finished</button>
     </div> <!-- end toolsContainer-->
 		<div id="canvasContainer">
 		</div>

@@ -1,3 +1,4 @@
+
 var shadow_p5 = new p5(function(shadow) {
     shadow.setup = function() {
         var myCanvas = shadow.createCanvas(700, 500);
@@ -19,8 +20,6 @@ var shadow_p5 = new p5(function(shadow) {
         shadow.stroke(currentColor);
         shadow.strokeWeight(currentSize);
         
-        
-        
         if (p5controller.shape === "line") {
             shadow.line(shadow.pmouseX, shadow.pmouseY, shadow.mouseX, shadow.mouseY);
         } else if (p5controller.shape === "rect") {
@@ -28,5 +27,6 @@ var shadow_p5 = new p5(function(shadow) {
         } else if (p5controller.shape === "circ") {
             shadow.ellipse(shadow.mouseX, shadow.mouseY, currentSize, currentSize);
         }
+
     }
 })

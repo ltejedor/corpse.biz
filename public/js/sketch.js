@@ -1,3 +1,4 @@
+var instructions = [];
 var sketch_p5 = new p5(function(sketch) {
 
     sketch.setup = function() {
@@ -36,14 +37,37 @@ var sketch_p5 = new p5(function(sketch) {
         }
 
         if (sketch.mouseIsPressed) {
-          if (p5controller.shape === "line") {
-            sketch.line(sketch.pmouseX, sketch.pmouseY, sketch.mouseX, sketch.mouseY);
-          } else if (p5controller.shape === "rect") {
-            sketch.rect(sketch.mouseX, sketch.mouseY, currentSize, currentSize);
-          } else if (p5controller.shape === "circ") {
-            sketch.ellipse(sketch.mouseX, sketch.mouseY, currentSize, currentSize);
-          }
-
+          if (sketch.isClickOnCanvas(sketch.mouseX, sketch.mouseY)) {
+            pushInstructions(sketch.mouseX, sketch.mouseY, sketch.pmousex,sketch.pmouseY);
+            if (p5controller.shape === "line") {
+                sketch.line(sketch.pmouseX, sketch.pmouseY, sketch.mouseX, sketch.mouseY);
+            } else if (p5controller.shape === "rect") {
+                sketch.rect(sketch.mouseX, sketch.mouseY, currentSize, currentSize);
+            } else if (p5controller.shape === "circ") {
+                sketch.ellipse(sketch.mouseX, sketch.mouseY, currentSize, currentSize);
+            }
+        }
       }
     }
+    
+    sketch.isClickOnCanvas = function(tempMouseX, tempMouseY) {
+        if (tempMouseX < 0 || tempMouseY < 0) {return false;}
+        if (tempMouseX > sketch.width || tempMouseY > sketch.height) {return false;} 
+        return true;
+    }
 })
+
+
+function pushInstructions(tempMouseX, tempMouseY, tempPmouseX, tempPmouseY) {
+    instructions.push({
+        user: p5controller.user,
+        role: p5controller.role,
+        type: p5controller.shape,
+        color: p5controller.color,
+        size: p5controller.size,
+        mouseX: tempMouseX,
+        mouseY: tempMouseY,
+        pmouseX: tempPmouseX,
+        pmouseY: tempPmouseY
+    })
+}
