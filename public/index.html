@@ -10,25 +10,22 @@
   <!-- uncomment lines below to include extra p5 libraries -->
   <!--<script language="javascript" src="libraries/p5.dom.js"></script>-->
   <!--<script language="javascript" src="libraries/p5.sound.js"></script>-->
-  <script language="javascript" type="text/javascript" src="js/sketch.js"></script>
+  <script language="javascript" type="text/javascript" src="js/shadow.js"></script>
+    <script language="javascript" type="text/javascript" src="js/sketch.js"></script>
+
   <!-- this line removes any default padding and style. you might only need one of these values set. -->
 
   <script>
     var p5controller = {
-      current_color:"3A539B",
-      last_color:"3A539B",
-      current_shape:"rect",
+      color:"3A539B",
+      shape:"line",
       size:20,
-      last_size:20,
-      clear:false,
-      total_time:0,
-      timer:0
+      clear:false
       };
 
     function update(jscolor) {
       document.body.style.backgroundColor = '#' + jscolor
-      p5controller.last_color = p5controller.current_color;
-      p5controller.current_color = jscolor
+      p5controller.color = jscolor
     }
 
     function setColor(hexcolor) {
@@ -38,22 +35,18 @@
     }
 
     function setShape(shape) {
-      p5controller.current_shape = shape;
+      p5controller.shape = shape;
+      console.log(p5controller)
     }
 
     function setShapeSize(size) {
-      p5controller.last_size = p5controller.size;
-      p5controller.size = size;
+      p5controller.size = parseInt(size);
     }
 
     function setClear() {
       p5controller.clear = true;
     }
 
-    function setTimer(time) {
-      p5controller.total_time = time;
-      p5controller.timer = time;
-    }
   </script>
   <style> body {padding: 0; margin: 0;} </style>
 </head>
@@ -100,7 +93,6 @@
         </div>
       </div>
       <button style="background:#00CCCC" onclick="setClear()">Clear</button>
-      <input type="range" onchange="setTimer(this.value)" min="0" max="500" step="1" value="0" autocomplete="off")
     </div> <!-- end toolsContainer-->
 		<div id="canvasContainer">
 		</div>

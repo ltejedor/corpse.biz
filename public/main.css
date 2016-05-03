@@ -29,3 +29,14 @@ canvas {
   display: block;
   cursor: default;
 }
+
+#defaultCanvas0{
+    position: relative;
+    z-index: 1;
+}
+
+#defaultCanvas1{
+    margin-top: -500px;
+    position: relative;
+    z-index: 0;
+}
