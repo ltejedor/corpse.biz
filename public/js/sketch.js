@@ -32,13 +32,14 @@ var sketch_p5 = new p5(function(sketch) {
         sketch.strokeWeight(currentSize);
         
         if (p5controller.clear) {
+          pushInstructions(sketch.mouseX, sketch.mouseY, sketch.pmouseX,sketch.pmouseY);
           p5controller.clear = false;
           sketch.background(235);
         }
 
         if (sketch.mouseIsPressed) {
           if (sketch.isClickOnCanvas(sketch.mouseX, sketch.mouseY)) {
-            pushInstructions(sketch.mouseX, sketch.mouseY, sketch.pmousex,sketch.pmouseY);
+            pushInstructions(sketch.mouseX, sketch.mouseY, sketch.pmouseX,sketch.pmouseY);
             if (p5controller.shape === "line") {
                 sketch.line(sketch.pmouseX, sketch.pmouseY, sketch.mouseX, sketch.mouseY);
             } else if (p5controller.shape === "rect") {
@@ -59,10 +60,16 @@ var sketch_p5 = new p5(function(sketch) {
 
 
 function pushInstructions(tempMouseX, tempMouseY, tempPmouseX, tempPmouseY) {
+    var type;
+    if (p5controller.clear) {
+        currentType = "clear";
+    } else {
+        currentType = p5controller.shape;
+    }
     instructions.push({
         user: p5controller.user,
         role: p5controller.role,
-        type: p5controller.shape,
+        type: currentType,
         color: p5controller.color,
         size: p5controller.size,
         mouseX: tempMouseX,
