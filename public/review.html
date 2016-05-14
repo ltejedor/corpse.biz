@@ -12,19 +12,26 @@
   <script language="javascript" type="text/javascript" src="js/review.js"></script>
   <script language="javascript" type="text/javascript" src="data/sampledata.js"></script>
   <script>
-
-    function readData() {
-        console.log(data)
-    };
   
+    var p5controller = {
+        save:false
+    };
+    
+    function setSave() {
+      p5controller.save = true;
+    };
+      
   </script>
   <style> body {padding: 0; margin: 0;} </style>
 </head>
 
 <body>
-	<h1>Check it out!</h1>
+	<h1>Huzzah!</h1>
 		<div id="canvasContainer">
 		</div>
+        <div>
+        <center><button style="background:#CC0000" onclick="setSave()">Save</button></center>
+        </div>
 	</container>
 </body>
 </html>
