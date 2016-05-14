@@ -22,15 +22,13 @@ var sketch_p5 = new p5(function(sketch) {
         sketch.line(initX, initLineYTop, initX, initLineYBottom);
       }
     }
+    
+    sketch.outputImage = function() {
+        p5controller.save=false;
+        sketch.saveCanvas('woah', 'png');
+    };
 
-    sketch.draw = function() {
-        var currentInstruction = data[sketch_i]
-        sketch_i += 1;
-
-        if (!currentInstruction) {
-            // stop drawing...
-            console.log("wish i had a portal gun")
-        }
+    sketch.replay = function(currentInstruction) {
         var currentSize = currentInstruction.size;
         var currentColor = sketch.color('#' + currentInstruction.color);
         var currentType = currentInstruction.type;
@@ -50,6 +48,17 @@ var sketch_p5 = new p5(function(sketch) {
             sketch.ellipse(xclick, yclick, currentSize, currentSize);
         } else if (currentType === "clear") {
             sketch.background(235);
+        }
+    }
+    
+    sketch.draw = function() {
+        var currentInstruction = data[sketch_i];
+        sketch_i += 1;
+        if (currentInstruction) {
+            sketch.replay(currentInstruction);
+        }
+        if (p5controller.save) {
+            sketch.outputImage();
         }
     } 
     
