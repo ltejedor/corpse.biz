@@ -10,25 +10,21 @@
   <!-- uncomment lines below to include extra p5 libraries -->
   <!--<script language="javascript" src="libraries/p5.dom.js"></script>-->
   <!--<script language="javascript" src="libraries/p5.sound.js"></script>-->
+  <script language="javascript" type="text/javascript" src="js/shadow.js"></script>
   <script language="javascript" type="text/javascript" src="js/sketch.js"></script>
-  <!-- this line removes any default padding and style. you might only need one of these values set. -->
-
   <script>
     var p5controller = {
-      current_color:"3A539B",
-      last_color:"3A539B",
-      current_shape:"rect",
+      user: "ben",
+      role: "head",
+      color:"3A539B",
+      shape:"line",
       size:20,
-      last_size:20,
-      clear:false,
-      total_time:0,
-      timer:0
+      clear:false
       };
 
     function update(jscolor) {
       document.body.style.backgroundColor = '#' + jscolor
-      p5controller.last_color = p5controller.current_color;
-      p5controller.current_color = jscolor
+      p5controller.color = jscolor
     }
 
     function setColor(hexcolor) {
@@ -38,29 +34,48 @@
     }
 
     function setShape(shape) {
-      p5controller.current_shape = shape;
+      p5controller.shape = shape;
     }
 
     function setShapeSize(size) {
-      p5controller.last_size = p5controller.size;
-      p5controller.size = size;
+      p5controller.size = parseInt(size);
     }
 
     function setClear() {
       p5controller.clear = true;
     }
 
-    function setTimer(time) {
-      p5controller.total_time = time;
-      p5controller.timer = time;
+    function saveJSON() {
+      var output = JSON.stringify(instructions);
+      console.log(instructions);
+      console.log(output);
+      // save to file using socket.io?
+      // need to get connector data and user data in there...
     }
+
   </script>
   <style> body {padding: 0; margin: 0;} </style>
+
 </head>
 
 <body>
 	<h1>Exquisite Corpse</h1>
-	<container>
+
+  <container id="announce-room">
+    <h2>Welcome to Exquisite Corse!</h2>
+    <h2>Enter your name to get started</h2>
+    <div class="intro">
+      <input id="m" autocomplete="off" /><button id="submitbtn" type="button" >Send</button>
+    </div>
+  </container>
+
+  <container id="waiting-room" style="display:none">
+    <ul id="messages"></ul>
+
+  </container>
+
+
+	<container id="drawing-room" style="display:none">
 		<div class="toolsContainer">
       <div class="colorPicker">
         <div>
@@ -100,10 +115,36 @@
         </div>
       </div>
       <button style="background:#00CCCC" onclick="setClear()">Clear</button>
-      <input type="range" onchange="setTimer(this.value)" min="0" max="500" step="1" value="0" autocomplete="off")
+      <button style="background:#00CCCC" onclick="saveJSON()">Finished</button>
     </div> <!-- end toolsContainer-->
 		<div id="canvasContainer">
 		</div>
 	</container>
 </body>
 </html>
+
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect();
+
+    document.getElementById('submitbtn').onclick=function(){
+      //send chat message to emit
+      socket.emit('chat message', document.getElementById('m').value)
+      document.getElementById('m').value = '';
+
+      //show waiting room and hide intro screen
+      document.getElementById("waiting-room").style.display = 'block';
+      document.getElementById("announce-room").style.display = 'none';
+
+
+      return false;
+
+    }
+
+    //display usernames
+    socket.on('chat message', function(msg){
+      var item = document.createElement('li');
+      item.appendChild(document.createTextNode(msg));
+      document.getElementById('messages').appendChild(item);
+    });
+  </script>
